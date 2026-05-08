@@ -2,7 +2,7 @@ public class SimpleMultiThreadProgram {
     
     public static void main(String[] args) {
         // Tạo hai luồng đơn giản
-        Thread thread1 = new Thread(new MyRunnable("Thread 1"));
+        Thread thread1 = new Thread(new MyRunnable("Thread 1")) ;
         Thread thread2 = new Thread(new MyRunnable("Thread 2"));
         
         // Khởi động các luồng
