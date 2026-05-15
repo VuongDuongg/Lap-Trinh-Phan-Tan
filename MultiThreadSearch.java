@@ -18,7 +18,7 @@ public class MultiThreadSearch {
         // 1. Khởi tạo Scanner để nhập dữ liệu
         Scanner sc = new Scanner(System.in);
         
-        System.out.print("Nhap so luong phan tu N (N > 100): ");
+        System.out.print("Nhap so luong phan tu N: ");
         int N = sc.nextInt();
 
         System.out.print("Nhap so luong luong K: ");
@@ -29,9 +29,11 @@ public class MultiThreadSearch {
         
         // Khởi tạo dữ liệu ngẫu nhiên cho danh sách A
         Random rand = new Random();
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < N - 1; i++) {
             A.add(rand.nextInt(1000)); // Sinh số ngẫu nhiên từ 0-999
         }
+
+        A.add(199); // Thêm một phần tử ngẫu nhiên nữa để đủ N phần tử
 
         Thread[] threads = new Thread[K];
         int chunkSize = N / K; // Chia nhỏ danh sách A cho mỗi luồng xử lý
@@ -40,8 +42,13 @@ public class MultiThreadSearch {
         for (int i = 0; i < K; i++) {
             final int threadId = i;
             final int start = i * chunkSize; // Vị trí bắt đầu của luồng i
-            // Đảm bảo luồng cuối cùng lấy hết phần còn lại nếu N không chia hết cho K
             final int end = (i == K - 1) ? N : (i + 1) * chunkSize; 
+
+            // Lay ra danh sach cac phan tu ma luong nay se xu ly
+            List<Integer> subList = A.subList(start, end);
+            
+            // In ra toan bo cac phan tu cua luong nay
+            System.out.println(subList);
 
             threads[i] = new Thread(() -> {
                 for (int j = start; j < end; j++) {
